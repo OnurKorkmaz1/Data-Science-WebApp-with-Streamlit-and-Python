@@ -21,6 +21,7 @@ def load_data(nrows):
     return data
 
 data =load_data(100000)
+original_data = data
 
 st.header("Where are the most people injured in NYC")
 injured_people =st.slider("Number of Person injured in vehicel collisions",0,19)
@@ -70,11 +71,17 @@ fig= px.bar(chart_Data,x="minute", y="crashes",hover_data=["minute","crashes"], 
 st.write(fig)
 
 
+st.header("Top 5 dangerous streets by affected type")
+select = st.selectbox("Affected type of people ", ["Pedestrians","Cyclists","Motorists"])
 
+if select == "Pedestrians":
+    st.write(original_data.query("injured_pedestrians >=1")[["on_street_name","injured_pedestrians"]].sort_values(by=["injured_pedestrians"],ascending= False).dropna(how= "any")[:5])
 
+elif select == "cyclists":
+    st.write(original_data.query("injured_cyclists >=1")[["on_street_name","injured_cyclists"]].sort_values(by=["injured_cyclists"],ascending= False).dropna(how= "any")[:5])
 
-
-
+else select == "motorists":
+    st.write(original_data.query("injured_motorists >=1")[["on_street_name","injured_motorists"]].sort_values(by=["injured_motorists"],ascending= False).dropna(how= "any")[:5])
 
 
 
