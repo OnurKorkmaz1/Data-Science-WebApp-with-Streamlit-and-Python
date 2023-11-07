@@ -80,7 +80,6 @@ elif select == "cyclists":
 else select == "motorists":
     st.write(original_data.query("injured_motorists >=1")[["on_street_name","injured_motorists"]].sort_values(by=["injured_motorists"],ascending= False).dropna(how= "any")[:5])
 
-
 if st.checkbox("Show Raw Data",False):
     st.subheader("Raw Data")
     st.write(data)
