@@ -10,7 +10,6 @@ st.title("Motor Vehicle Collisions in New York city")
 st.markdown("This application is a Streamlit dahboard that can be used"
 "to analyze motor vehicle collisions in NYC")
 
-
 @st.cache(persist = True)
 def load_data(nrows):
     data =pd.read_csv(DATA_URL, nrows=nrows, parse_dates = [["CRASH_DATE","CRASH_TIME"]])
@@ -34,8 +33,6 @@ data =data[data["data/time"].dt.hour == hour]
 
 st.markdown("Vehicle collesions between %i:00 and%i:00" % (hour, (hour + 1)%24))
 midpoint = np.average(data["latitude"]),np.average(data["longitude"])
-
-
 
 st.write(pdk.Deck(
     map_style = "mapbox://styles/mapbox/light-v9",
@@ -82,8 +79,6 @@ elif select == "cyclists":
 
 else select == "motorists":
     st.write(original_data.query("injured_motorists >=1")[["on_street_name","injured_motorists"]].sort_values(by=["injured_motorists"],ascending= False).dropna(how= "any")[:5])
-
-
 
 
 if st.checkbox("Show Raw Data",False):
